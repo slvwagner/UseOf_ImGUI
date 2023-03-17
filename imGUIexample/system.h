@@ -50,9 +50,9 @@ string getwd()
     {
         return "error in _getcwd";
     }
-    std::string cfilePath(cwd);
+    string cfilePath(cwd);
     free(cwd);
-    std::replace(cfilePath.begin(), cfilePath.end(), '\\', '/');
+    replace(cfilePath.begin(), cfilePath.end(), '\\', '/');
 
     return cfilePath + "/";
 }
@@ -74,7 +74,7 @@ Mat GetImage(string filePathName)
 /// Write CV Matrix to an xml file 
 /// </summary>
 /// <param name="cv::Mat (Matrix)"></param>
-/// <param name="std::string (filename)"></param>
+/// <param name="string (filename)"></param>
 void writeMatToFile(cv::Mat& matrix, const char* filename)
 {
     ofstream fout(filename);
@@ -99,14 +99,14 @@ void writeMatToFile(cv::Mat& matrix, const char* filename)
 /// <param name="dir_name"></param>
 /// <param name="extension"></param>
 /// <returns></returns>
-std::vector<std::string> list_files_by_extension(const std::string& dir_name, const std::string& extension)
+vector<string> list_files_by_extension(const string& dir_name, const string& extension)
 {
     // return vector
-    std::vector<std::string> files;
+    vector<string> files;
 
     // Convert the narrow character directory name and extension to wide character strings
-    std::wstring wdir_name(dir_name.begin(), dir_name.end());
-    std::wstring wextension(extension.begin(), extension.end());
+    wstring wdir_name(dir_name.begin(), dir_name.end());
+    wstring wextension(extension.begin(), extension.end());
 
     // Concatenate the search pattern and the directory name
     wchar_t search_pattern[MAX_PATH];
@@ -138,13 +138,13 @@ std::vector<std::string> list_files_by_extension(const std::string& dir_name, co
     return files;
 }
 
-std::vector<std::string> list_files_by_pattern(const std::string& dir_name, const std::string& pattern)
+vector<string> list_files_by_pattern(const string& dir_name, const string& pattern)
 {
-    std::vector<std::string> files;
+    vector<string> files;
 
     // Convert the narrow character directory name and pattern to wide character strings
-    std::wstring wdir_name(dir_name.begin(), dir_name.end());
-    std::wstring wpattern(pattern.begin(), pattern.end());
+    wstring wdir_name(dir_name.begin(), dir_name.end());
+    wstring wpattern(pattern.begin(), pattern.end());
 
     // Concatenate the search pattern and the directory name
     wchar_t search_pattern[MAX_PATH];
@@ -178,7 +178,7 @@ std::vector<std::string> list_files_by_pattern(const std::string& dir_name, cons
 
 
 /// <summary>
-/// Convert a "int" to a std::string
+/// Convert a "int" to a string
 /// </summary>
 /// <param name="value"></param>
 /// <returns></returns>
@@ -196,7 +196,7 @@ char* int_to_string(int value)
 }
 
 /// <summary>
-/// Convert a "double" to a std::string
+/// Convert a "double" to a string
 /// </summary>
 /// <param name="value"></param>
 /// <returns></returns>
@@ -219,10 +219,10 @@ char* double_to_string(double value)
 /// <param name="imageFilePath"></param>
 /// <param name="fileNames"></param>
 /// <returns>Image vector</returns>
-std::vector <cv::Mat> load_images(string imageFilePath, std::vector <string> fileNames)
+vector <cv::Mat> load_images(string imageFilePath, vector <string> fileNames)
 {
-    std::string cfile;
-    std::vector <cv::Mat> images;
+    string cfile;
+    vector <cv::Mat> images;
 cv:Mat image;
 
     // load all files used for calib
@@ -245,7 +245,7 @@ cv:Mat image;
 
 /////////////////////////////
 
-std::vector<cv::Point> points;
+vector<cv::Point> points;
 
 /// <summary>
 /// on Mouse left click event
@@ -260,7 +260,7 @@ void onMouse(int event, int x, int y, int flags, void* userdata)
     if (event == cv::EVENT_LBUTTONDOWN)
     {
         points.push_back(cv::Point(x, y));
-        std::cout << "Mouse position: (" << x << ", " << y << ")" << std::endl;
+        cout << "Mouse position: (" << x << ", " << y << ")" << endl;
     }
 }
 
@@ -273,7 +273,7 @@ void onMouse(int event, int x, int y, int flags, void* userdata)
 void onContrastTrackbarChange(int value, void* userData)
 {
     cv::VideoCapture* capture = static_cast<cv::VideoCapture*>(userData);
-    capture->set(cv::CAP_PROP_CONTRAST, std::pow(10.0, value / 100.0));
+    capture->set(cv::CAP_PROP_CONTRAST, pow(10.0, value / 100.0));
 }
 
 /// <summary>
@@ -284,7 +284,7 @@ void onContrastTrackbarChange(int value, void* userData)
 void onBrightnessTrackbarChange(int value, void* userData)
 {
     cv::VideoCapture* capture = static_cast<cv::VideoCapture*>(userData);
-    capture->set(cv::CAP_PROP_BRIGHTNESS, std::pow(10.0, value / 100.0));
+    capture->set(cv::CAP_PROP_BRIGHTNESS, pow(10.0, value / 100.0));
 }
 
 /// <summary>
@@ -295,7 +295,7 @@ void onBrightnessTrackbarChange(int value, void* userData)
 void onExposureTrackbarChange(int value, void* userData)
 {
     cv::VideoCapture* capture = static_cast<cv::VideoCapture*>(userData);
-    capture->set(cv::CAP_PROP_EXPOSURE, std::pow(10.0, value / 100.0));
+    capture->set(cv::CAP_PROP_EXPOSURE, pow(10.0, value / 100.0));
 }
 
 /// <summary>
@@ -306,7 +306,7 @@ void onExposureTrackbarChange(int value, void* userData)
 void onSaturationTrackbarChange(int value, void* userData)
 {
     cv::VideoCapture* capture = static_cast<cv::VideoCapture*>(userData);
-    capture->set(cv::CAP_PROP_SATURATION, std::pow(10.0, value / 100.0));
+    capture->set(cv::CAP_PROP_SATURATION, pow(10.0, value / 100.0));
 }
 
 /// <summary>
@@ -317,7 +317,7 @@ void onSaturationTrackbarChange(int value, void* userData)
 void onGainTrackbarChange(int value, void* userData)
 {
     cv::VideoCapture* capture = static_cast<cv::VideoCapture*>(userData);
-    capture->set(cv::CAP_PROP_GAIN, std::pow(10.0, value / 100.0));
+    capture->set(cv::CAP_PROP_GAIN, pow(10.0, value / 100.0));
 }
 
 /// <summary>
@@ -328,5 +328,5 @@ void onGainTrackbarChange(int value, void* userData)
 void onGammaTrackbarChange(int value, void* userData)
 {
     cv::VideoCapture* capture = static_cast<cv::VideoCapture*>(userData);
-    capture->set(cv::CAP_PROP_GAMMA, std::pow(10.0, value / 100.0));
+    capture->set(cv::CAP_PROP_GAMMA, pow(10.0, value / 100.0));
 }

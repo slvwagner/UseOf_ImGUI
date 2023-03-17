@@ -50,11 +50,11 @@ public:
 		//int width = image.cols;
 		//int height = image.rows;
 		//int channels = image.channels();
-		//std::cout << "\n" << "width" << width;
-		//std::cout << "\n" << "height" << height;
-		//std::cout << "\n" << "channels" << channels;
+		//cout << "\n" << "width" << width;
+		//cout << "\n" << "height" << height;
+		//cout << "\n" << "channels" << channels;
 
-		std::vector<unsigned char> imgData;
+		vector<unsigned char> imgData;
 		imgData.assign(image.datastart, image.dataend);
 
 		unsigned char* data = &imgData[0];
