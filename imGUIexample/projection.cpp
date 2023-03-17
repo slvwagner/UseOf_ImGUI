@@ -20,7 +20,7 @@ int h = 1000;
 int size = 1;
 int rows = 1000;
 int cols = 1000;
-const static double M_PI =  3.141592653589793238462643383279502884197169399375; //Kreiszahl
+const static float M_PI =  3.141592653589793238462643383279502884197169399375; //Kreiszahl
 
 //---------------------------------------------------------------
 
@@ -76,7 +76,7 @@ Eigen::Matrix<float, 3, 3> RotZ(float ang)
 }
 
 //---------------------------------------------------------------
-/*
+
 int main(int argc, char const* argv[])
 {
 
@@ -235,4 +235,3 @@ int main(int argc, char const* argv[])
 	termImgui();
 	return 0;
 }
-*/

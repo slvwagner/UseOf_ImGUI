@@ -10,3 +10,8 @@ target_link_libraries(imGUIexample PRIVATE glfw)
 
 find_package(imgui CONFIG REQUIRED)
 target_link_libraries(imGUIexample PRIVATE imgui::imgui)
+
+# this is heuristically generated, and may not be correct
+find_package(OpenCV CONFIG REQUIRED)
+# note: 10 additional targets are not displayed.
+target_link_libraries(imGUIexample PRIVATE opencv)
