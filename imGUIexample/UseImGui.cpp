@@ -39,11 +39,9 @@ void render_conan_logo()
 
 
 void UseImGui::Update() {
-	ImGui::Begin("Conan Logo");                          // Create a window called "Conan Logo" and append into it.
+	ImGui::Begin("Conan Logo"); // Create a window called "Conan Logo" and append into it.
 	render_conan_logo();  // draw conan logo if user didn't override update
 	ImGui::End();
-
-
 }
 
 void UseImGui::Render() {
@@ -58,4 +56,3 @@ void UseImGui::Shutdown() {
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
 }
-

@@ -1,6 +1,6 @@
 ﻿cmake_minimum_required (VERSION 3.8)
 
-add_executable (imGUIexample "imGUIexample.cpp" "UseImGui.cpp" "UseImGui.h" "projection.cpp" )
+add_executable (imGUIexample "imGUIexample.cpp" "UseImGui.cpp" "UseImGui.h" "projection.cpp" "imgui_helper.hpp")
 
 find_package(glad CONFIG REQUIRED)
 target_link_libraries(imGUIexample PRIVATE glad::glad)
@@ -38,4 +38,4 @@ find_package(Stb REQUIRED)
 target_include_directories(imGUIexample PRIVATE ${Stb_INCLUDE_DIR})
 
 find_package(Python3 COMPONENTS Development REQUIRED)
-target_link_libraries(main PRIVATE Python3::Python)
+target_link_libraries(imGUIexample PRIVATE Python3::Python)
