@@ -9,6 +9,9 @@
 		"glfw3",
 		"glad",
 		"eigen3",
-		"opencv"
+		"opencv",
+		"opengl",
+		"stb",
+		"python3"
 	]
 }
