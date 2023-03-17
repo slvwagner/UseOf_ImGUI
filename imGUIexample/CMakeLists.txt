@@ -11,3 +11,6 @@ target_link_libraries(imGUIexample PRIVATE glfw)
 find_package(imgui CONFIG REQUIRED)
 target_link_libraries(imGUIexample PRIVATE imgui::imgui)
 
+find_package(Eigen3 CONFIG REQUIRED)
+target_link_libraries(imGUIexample PRIVATE Eigen3::Eigen) 
+

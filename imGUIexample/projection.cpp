@@ -1,13 +1,14 @@
 // Markus Buchholz, 2023
 
-//#include <stdafx.hpp>
+#include "UseImGui.h"
 //#include "imgui_helper.hpp"
 #include <tuple>
 #include <vector>
 #include <math.h>
 #include <random>
 #include <algorithm>
-//#include <Eigen/Dense>
+#include <Eigen/Dense>
+#include <math.h>
 
 //---------------------------------------------------------------
 
@@ -19,6 +20,7 @@ int h = 1000;
 int size = 1;
 int rows = 1000;
 int cols = 1000;
+const static double M_PI =  3.141592653589793238462643383279502884197169399375; //Kreiszahl
 
 //---------------------------------------------------------------
 
@@ -31,7 +33,7 @@ int generateRandom()
 	return distrib(generator);
 }
 //---------------------------------------------------------------
-/*
+
 Eigen::Matrix<float, 3, 3> RotX(float ang)
 {
 
@@ -44,7 +46,7 @@ Eigen::Matrix<float, 3, 3> RotX(float ang)
 		0.0f, s, c;
 	return Rx;
 }
-/*
+
 //---------------------------------------------------------------
 Eigen::Matrix<float, 3, 3> RotY(float ang)
 {
@@ -74,7 +76,7 @@ Eigen::Matrix<float, 3, 3> RotZ(float ang)
 }
 
 //---------------------------------------------------------------
-
+/*
 int main(int argc, char const* argv[])
 {
 
