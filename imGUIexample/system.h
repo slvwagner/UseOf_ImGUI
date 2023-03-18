@@ -1,5 +1,6 @@
 #include "Header.h"
 
+
 using namespace cv;
 
 // Simple helper function to load an image into a OpenGL texture with common settings

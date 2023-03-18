@@ -6,64 +6,40 @@
 
 class CustomImGui : public UseImGui {
 public:
+	void loadImage(char const* fileNamePath) {
+		int image_width = 0;
+		int image_height = 0;
+		unsigned char* image_data = stbi_load(fileNamePath, &image_width, &image_height, NULL, 4);
+		if (image_data != NULL) {
+			glGenTextures(1, &my_image_texture);
+			glBindTexture(GL_TEXTURE_2D, my_image_texture);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image_width, image_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image_data);
+			stbi_image_free(image_data);
+			my_image_width = image_width;
+			my_image_height = image_height;
+		}
+	}
+
 	virtual void Update() override {
 
-		int my_image_width = 0;
-		int my_image_height = 0;
+		/*
+		int my_image_width = 0, my_image_height = 0;
 		GLuint my_image_texture = 0;
-		//bool ret = LoadTextureFromFile("C:\\Users\\slvwa\\OneDrive\\Desktop\\CV_pic_2023.jpg", &my_image_texture, &my_image_width, &my_image_height);
 		bool ret = LoadTextureFromFile("C:/Users/slvwa/OneDrive/Desktop/CV_pic_2023.jpg", &my_image_texture, &my_image_width, &my_image_height);
 		IM_ASSERT(ret);
+		*/
 
+		// Show Image in Gui
 		ImGui::Begin("OpenGL Texture Text");
 		ImGui::Text("pointer = %p", my_image_texture);
 		ImGui::Text("size = %d x %d", my_image_width, my_image_height);
 		ImGui::Image((void*)(intptr_t)my_image_texture, ImVec2(my_image_width, my_image_height));
 		ImGui::End();
-		/*
-		// Load image using stb_image library
-		const string fileNamePath = "C:\\Users\\slvwa\\OneDrive\\Desktop\\CV_pic_2023.jpg";
-		int width, height, num_channels;
-		unsigned char* image_data = stbi_load(const CHAR(fileNamePath), &width, &height, &num_channels, 0);
 
-		// Create OpenGL texture object
-		GLuint texture_id;
-		glGenTextures(1, &texture_id);
-		glBindTexture(GL_TEXTURE_2D, texture_id);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image_data);
-		glGenerateMipmap(GL_TEXTURE_2D);
-
-		// Create window
-		ImGui::Begin("Image Window");
-		ImVec2 texture_size(width, height);
-		ImGui::Image(reinterpret_cast<void*>(texture_id), texture_size);
-		ImGui::End();
-		*/
-
-		/*
-		// Load the image using OpenCV
-		Mat image = cv::imread("C:/Users/slvwa/OneDrive/Desktop/CV_pic_2023.jpg", cv::COLOR_BGR2RGB);
-		//resize(image, image, Size(500,700));
-		//imshow("Pict", image);
-		//waitKey(1);
-
-		//int width = image.cols;
-		//int height = image.rows;
-		//int channels = image.channels();
-		//cout << "\n" << "width" << width;
-		//cout << "\n" << "height" << height;
-		//cout << "\n" << "channels" << channels;
-
-		vector<unsigned char> imgData;
-		imgData.assign(image.datastart, image.dataend);
-
-		unsigned char* data = &imgData[0];
-
-		// Display the image using ImGui
-		ImGui::Begin("Image Viewer");
-		ImGui::Image((void*)&data, ImVec2(width/3, height/3));
-		ImGui::End();
-		*/
 
 		// render your GUI
 		static float f = 0.0f;
@@ -89,7 +65,6 @@ public:
 		if (clear_color_changed) {
 			change_clear_color(clear_color[0], clear_color[1], clear_color[2]);
 		}
-
 	}
 
 private:
@@ -97,10 +72,18 @@ private:
 	void change_clear_color(float r, float g, float b) {
 		glClearColor(r, g, b, 1.00f);
 	}
+	// Image Data 
+	int my_image_width = 0;
+	int my_image_height = 0;
+	GLuint my_image_texture = 0;
 };
 
 
-
+/// <summary>
+/// Testing ImGui 
+/// show Pictures
+/// </summary>
+/// <returns></returns>
 int main()
 {
 	// Setup window
@@ -128,8 +111,13 @@ int main()
 	glfwGetFramebufferSize(window, &screen_width, &screen_height);
 	glViewport(0, 0, screen_width, screen_height);
 
+
+	// Create GUI 
 	CustomImGui myimgui;
 	myimgui.Init(window, glsl_version);
+	myimgui.loadImage("C:/Users/slvwa/OneDrive/Desktop/CV_pic_2023.jpg");
+
+	// ImGui update
 	while (!glfwWindowShouldClose(window)) {
 		glfwPollEvents();
 
