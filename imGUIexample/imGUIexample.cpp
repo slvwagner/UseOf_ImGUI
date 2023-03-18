@@ -26,20 +26,12 @@ public:
 
 	virtual void Update() override {
 
-		/*
-		int my_image_width = 0, my_image_height = 0;
-		GLuint my_image_texture = 0;
-		bool ret = LoadTextureFromFile("C:/Users/slvwa/OneDrive/Desktop/CV_pic_2023.jpg", &my_image_texture, &my_image_width, &my_image_height);
-		IM_ASSERT(ret);
-		*/
-
 		// Show Image in Gui
 		ImGui::Begin("OpenGL Texture Text");
 		ImGui::Text("pointer = %p", my_image_texture);
 		ImGui::Text("size = %d x %d", my_image_width, my_image_height);
 		ImGui::Image((void*)(intptr_t)my_image_texture, ImVec2(my_image_width, my_image_height));
 		ImGui::End();
-
 
 		// render your GUI
 		static float f = 0.0f;
@@ -111,11 +103,11 @@ int main()
 	glfwGetFramebufferSize(window, &screen_width, &screen_height);
 	glViewport(0, 0, screen_width, screen_height);
 
-
 	// Create GUI 
 	CustomImGui myimgui;
 	myimgui.Init(window, glsl_version);
-	myimgui.loadImage("C:/Users/slvwa/OneDrive/Desktop/CV_pic_2023.jpg");
+	// Load image to display just once
+	myimgui.loadImage("D:/src/UseOf_ImGUI/imGUIexample/Picts/logo weiss marine blau.png");
 
 	// ImGui update
 	while (!glfwWindowShouldClose(window)) {
@@ -126,7 +118,6 @@ int main()
 		myimgui.Update();
 		myimgui.Render();
 		glfwSwapBuffers(window);
-
 	}
 	myimgui.Shutdown();
 
