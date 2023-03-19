@@ -107,7 +107,7 @@ int main()
 	CustomImGui myimgui;
 	myimgui.Init(window, glsl_version);
 	// Load image to display just once
-	myimgui.loadImage("D:/src/UseOf_ImGUI/imGUIexample/Picts/logo weiss marine blau.png");
+	myimgui.loadImage("D:/src_D/UseOf_ImGUI/imGUIexample/Picts/logo weiss marine blau.png");
 
 	// ImGui update
 	while (!glfwWindowShouldClose(window)) {
