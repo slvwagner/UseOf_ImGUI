@@ -7,9 +7,8 @@ using namespace cv;
 VideoCapture vid_capture0(cam0);
 VideoCapture vid_capture1(cam1);
 
-
 /// <summary>
-/// set web cam settings
+/// web cam settings
 /// </summary>
 void videoSettings() {
 	vid_capture0.set(cv::CAP_PROP_FRAME_WIDTH, frameWidth);
@@ -18,13 +17,17 @@ void videoSettings() {
 	vid_capture1.set(cv::CAP_PROP_FRAME_HEIGHT, frameHeight);
 }
 
+// Video frames
+Mat frame0 ;
+Mat frame1 ;
+
 /// <summary>
 /// load a singl frame
 /// </summary>
 void loadFrame() {
 
-	// Video frames
-	Mat frame0, frame1;
+	frame0.release();
+	frame1.release();
 
 	//show video 
 	// Check if the camera was opened successfully
@@ -35,7 +38,48 @@ void loadFrame() {
 	// set correct resolution accoring to camer typ
 	vid_capture0.read(frame0);
 	vid_capture1.read(frame1);
+
 }
+
+GLuint imageTexture_cam0, imageTexture_cam1;
+
+/// <summary>
+/// Change CV Mat to texture, used in imGui
+/// </summary>
+/// <param name="image"></param>
+/// <param name="imageTexture"></param>
+void BindCVMat2GLTexture(cv::Mat& image, GLuint& imageTexture)
+{
+	if (image.empty()) {
+		std::cout << "image empty" << std::endl;
+	}
+	else {
+		//glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+		glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+		glGenTextures(1, &imageTexture);
+		glBindTexture(GL_TEXTURE_2D, imageTexture);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		// Set texture clamping method
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+
+		cv::cvtColor(image, image, cv::COLOR_RGB2BGR);
+
+		glTexImage2D(GL_TEXTURE_2D,         // Type of texture
+			0,                   // Pyramid level (for mip-mapping) - 0 is the top level
+			GL_RGB,              // Internal colour format to convert to
+			image.cols,          // Image width  i.e. 640 for Kinect in standard mode
+			image.rows,          // Image height i.e. 480 for Kinect in standard mode
+			0,                   // Border width in pixels (can either be 1 or 0)
+			GL_RGB,              // Input image format (i.e. GL_RGB, GL_RGBA, GL_BGR etc.)
+			GL_UNSIGNED_BYTE,    // Image data type
+			image.ptr());        // The actual image data itself
+	}
+}
+
 
 /// <summary>
 /// 2. Part of the class to create an ImGui object
@@ -65,6 +109,22 @@ public:
 
 		// Webcam frames
 		loadFrame();
+		BindCVMat2GLTexture(frame0, imageTexture_cam0);
+		BindCVMat2GLTexture(frame1, imageTexture_cam1);
+
+		// Show video cam0
+		ImGui::Begin("cam0");
+		ImGui::Text("pointer = %p", imageTexture_cam0);
+		ImGui::Text("size = %d x %d", frameWidth, frameHeight);
+		ImGui::Image((void*)(intptr_t)imageTexture_cam0, ImVec2(frameWidth, frameHeight));
+		ImGui::End();
+
+		// Show video cam1
+		ImGui::Begin("cam1");
+		ImGui::Text("pointer = %p", imageTexture_cam1);
+		ImGui::Text("size = %d x %d", frameWidth, frameHeight);
+		ImGui::Image((void*)(intptr_t)imageTexture_cam1, ImVec2(frameWidth, frameHeight));
+		ImGui::End();
 
 		// Show Image in Gui
 		ImGui::Begin("OpenGL Texture Text");
