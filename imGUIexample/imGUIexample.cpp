@@ -4,9 +4,13 @@
 using namespace cv;
 
 // initialize a video capture object(`s)
-cv::VideoCapture vid_capture0(cam0);
-cv::VideoCapture vid_capture1(cam1);
+VideoCapture vid_capture0(cam0);
+VideoCapture vid_capture1(cam1);
 
+
+/// <summary>
+/// set web cam settings
+/// </summary>
 void videoSettings() {
 	vid_capture0.set(cv::CAP_PROP_FRAME_WIDTH, frameWidth);
 	vid_capture0.set(cv::CAP_PROP_FRAME_HEIGHT, frameHeight);
@@ -14,8 +18,13 @@ void videoSettings() {
 	vid_capture1.set(cv::CAP_PROP_FRAME_HEIGHT, frameHeight);
 }
 
-
+/// <summary>
+/// load a singl frame
+/// </summary>
 void loadFrame() {
+
+	// Video frames
+	Mat frame0, frame1;
 
 	//show video 
 	// Check if the camera was opened successfully
@@ -24,17 +33,13 @@ void loadFrame() {
 		std::cout << "Error opening camera" << std::endl;
 	}
 	// set correct resolution accoring to camer typ
-	vid_capture0.set(cv::CAP_PROP_FRAME_WIDTH, frameWidth);
-	vid_capture0.set(cv::CAP_PROP_FRAME_HEIGHT, frameHeight);
-	vid_capture1.set(cv::CAP_PROP_FRAME_WIDTH, frameWidth);
-	vid_capture1.set(cv::CAP_PROP_FRAME_HEIGHT, frameHeight);
-	Mat frame0;
 	vid_capture0.read(frame0);
-	Mat frame1;
 	vid_capture1.read(frame1);
 }
 
-
+/// <summary>
+/// 2. Part of the class to create an ImGui object
+/// </summary>
 class CustomImGui : public UseImGui {
 public:
 
