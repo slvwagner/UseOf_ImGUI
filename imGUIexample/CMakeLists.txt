@@ -32,8 +32,16 @@ target_link_libraries(imGUIexample PRIVATE opencv_stitching)
 target_link_libraries(imGUIexample PRIVATE opencv_video)
 target_link_libraries(imGUIexample PRIVATE opencv_videoio)
 
+# openGL
 find_package(OpenGL REQUIRED)
 target_link_libraries(imGUIexample PRIVATE OpenGL::GL)
+find_package(FreeGLUT CONFIG REQUIRED)
+target_link_libraries(imGUIexample PRIVATE $<IF:$<TARGET_EXISTS:FreeGLUT::freeglut>,FreeGLUT::freeglut,FreeGLUT::freeglut_static>)
+
+find_package(FFMPEG REQUIRED)
+target_include_directories(imGUIexample PRIVATE ${FFMPEG_INCLUDE_DIRS})
+target_link_directories(imGUIexample PRIVATE ${FFMPEG_LIBRARY_DIRS})
+target_link_libraries(imGUIexample PRIVATE ${FFMPEG_LIBRARIES})
 
 # load pict to ram 
 find_package(Stb REQUIRED)

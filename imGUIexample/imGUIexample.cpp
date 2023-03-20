@@ -1,8 +1,8 @@
 ﻿// imGUIexample.cpp : Defines the entry point for the application.
 //
-
 #include "Header.h"
-#include "system.h"
+#include <GL/gl.h>
+#include <GL/freeglut.h>
 
 class CustomImGui : public UseImGui {
 public:
@@ -68,6 +68,12 @@ private:
 	int my_image_width = 0;
 	int my_image_height = 0;
 	GLuint my_image_texture = 0;
+
+	// Video frame
+	int width = 640;
+	int height = 480;
+	GLuint textureID;
+	VideoCapture cap;
 };
 
 
@@ -103,7 +109,7 @@ int main()
 	glfwGetFramebufferSize(window, &screen_width, &screen_height);
 	glViewport(0, 0, screen_width, screen_height);
 
-	// Create GUI 
+	// Create GUI object
 	CustomImGui myimgui;
 	myimgui.Init(window, glsl_version);
 	// Load image to display just once

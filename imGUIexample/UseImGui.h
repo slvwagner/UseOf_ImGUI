@@ -1,3 +1,6 @@
+
+// Included 
+
 #pragma once
 
 #include <imgui.h>
@@ -5,12 +8,10 @@
 #include <imgui_impl_opengl3.h>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <imgui.h>
 
 #include <fstream>
 #include <iostream>
 #include <cstdlib>
-//#include <unistd.h>
 
 #include <array>
 #include <vector>

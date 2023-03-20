@@ -17,7 +17,6 @@ void UseImGui::NewFrame() {
 	ImGui::NewFrame();
 }
 
-
 // from https://github.com/conan-io/examples/blob/master/libraries/dear-imgui/basic/main.cpp
 void render_conan_logo()
 {

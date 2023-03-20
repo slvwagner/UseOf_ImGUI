@@ -33,8 +33,11 @@
 // ImGui 
 #include "UseImGui.h"
 
-
 // Common name space for the project
 using namespace std;
+
+// Helper function
+#include "system.h"
+
 
 #pragma warning(disable : 4996)
