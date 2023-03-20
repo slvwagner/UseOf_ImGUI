@@ -19,6 +19,7 @@
 #include <mutex>    
 
 // opencv dependencies 
+#include <opencv2/opencv.hpp>
 #include <opencv2/calib3d.hpp>
 #include <opencv2/core.hpp>
 #include <opencv2/highgui.hpp>
@@ -29,6 +30,8 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
+//Enums
+#include "Enum.h"
 
 // ImGui 
 #include "UseImGui.h"

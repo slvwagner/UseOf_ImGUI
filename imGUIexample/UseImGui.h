@@ -23,6 +23,12 @@
 #include <math.h>
 #include <random>
 
+extern "C" {
+#include <libavcodec/avcodec.h>
+#include <libavformat/avformat.h>
+#include <libswscale/swscale.h>
+}
+
 
 class UseImGui {
 public:

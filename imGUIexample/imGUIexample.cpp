@@ -1,11 +1,43 @@
 ﻿// imGUIexample.cpp : Defines the entry point for the application.
 //
 #include "Header.h"
-#include <GL/gl.h>
-#include <GL/freeglut.h>
+using namespace cv;
+
+// initialize a video capture object(`s)
+cv::VideoCapture vid_capture0(cam0);
+cv::VideoCapture vid_capture1(cam1);
+
+void videoSettings() {
+	vid_capture0.set(cv::CAP_PROP_FRAME_WIDTH, frameWidth);
+	vid_capture0.set(cv::CAP_PROP_FRAME_HEIGHT, frameHeight);
+	vid_capture1.set(cv::CAP_PROP_FRAME_WIDTH, frameWidth);
+	vid_capture1.set(cv::CAP_PROP_FRAME_HEIGHT, frameHeight);
+}
+
+
+void loadFrame() {
+
+	//show video 
+	// Check if the camera was opened successfully
+	if (!(vid_capture0.isOpened() && vid_capture1.isOpened()))
+	{
+		std::cout << "Error opening camera" << std::endl;
+	}
+	// set correct resolution accoring to camer typ
+	vid_capture0.set(cv::CAP_PROP_FRAME_WIDTH, frameWidth);
+	vid_capture0.set(cv::CAP_PROP_FRAME_HEIGHT, frameHeight);
+	vid_capture1.set(cv::CAP_PROP_FRAME_WIDTH, frameWidth);
+	vid_capture1.set(cv::CAP_PROP_FRAME_HEIGHT, frameHeight);
+	Mat frame0;
+	vid_capture0.read(frame0);
+	Mat frame1;
+	vid_capture1.read(frame1);
+}
+
 
 class CustomImGui : public UseImGui {
 public:
+
 	void loadImage(char const* fileNamePath) {
 		int image_width = 0;
 		int image_height = 0;
@@ -26,6 +58,9 @@ public:
 
 	virtual void Update() override {
 
+		// Webcam frames
+		loadFrame();
+
 		// Show Image in Gui
 		ImGui::Begin("OpenGL Texture Text");
 		ImGui::Text("pointer = %p", my_image_texture);
@@ -36,22 +71,15 @@ public:
 		// render your GUI
 		static float f = 0.0f;
 		static int counter = 0;
-
 		ImGui::Begin("CustomImGui Hello, world!");              // Create a window called "Hello, world!" and append into it.
-
 		ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
-
 		ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
-
 		bool clear_color_changed = ImGui::ColorEdit3("clear color", (float*)clear_color); // Edit 3 floats representing a color
-
 		if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
 			counter++;
 		ImGui::SameLine();
 		ImGui::Text("counter = %d", counter);
-
 		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-
 		ImGui::End();
 
 		if (clear_color_changed) {
@@ -68,12 +96,6 @@ private:
 	int my_image_width = 0;
 	int my_image_height = 0;
 	GLuint my_image_texture = 0;
-
-	// Video frame
-	int width = 640;
-	int height = 480;
-	GLuint textureID;
-	VideoCapture cap;
 };
 
 
@@ -115,10 +137,12 @@ int main()
 	// Load image to display just once
 	myimgui.loadImage("D:/src_D/UseOf_ImGUI/imGUIexample/Picts/logo weiss marine blau.png");
 
+	//Set Webcam settings
+	videoSettings();
+
 	// ImGui update
 	while (!glfwWindowShouldClose(window)) {
 		glfwPollEvents();
-
 		glClear(GL_COLOR_BUFFER_BIT);
 		myimgui.NewFrame();
 		myimgui.Update();
@@ -126,6 +150,11 @@ int main()
 		glfwSwapBuffers(window);
 	}
 	myimgui.Shutdown();
+
+	// reles webcams 
+	vid_capture0.release();
+	vid_capture0.release();
+	destroyAllWindows();
 
 	return 0;
 }
