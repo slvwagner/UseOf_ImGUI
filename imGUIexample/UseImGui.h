@@ -8,18 +8,8 @@
 #include <imgui_impl_opengl3.h>
 
 //imPlot
-// We define this so that the demo does not accidentally use deprecated API
-#ifndef IMPLOT_DISABLE_OBSOLETE_FUNCTIONS
-#define IMPLOT_DISABLE_OBSOLETE_FUNCTIONS
-#endif
-
 #include <implot.h>
-
-#ifndef PI
-#define PI 3.14159265358979323846
-#endif
-
-#define CHECKBOX_FLAG(flags, flag) ImGui::CheckboxFlags(#flag, (unsigned int*)&flags, flag)
+#include <implot_internal.h>
 
 
 // openGL

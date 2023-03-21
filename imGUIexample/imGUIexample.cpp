@@ -156,7 +156,7 @@ public:
 		ImGui::Image((void*)(intptr_t)my_image_texture, ImVec2(my_image_width, my_image_height));
 		ImGui::End();
 
-		ImPlot::ShowDemoWindow();
+		//ImPlot::ShowDemoWindow();
 		/*
 		// ImPlot example
 		double   bar_data[4] = {1,2,2.5,15};
@@ -168,8 +168,7 @@ public:
 		ImGui::End();
 		*/
 
-
-		// render your GUI
+		// CustomImGui Hello, world! 
 		static float f = 0.0f;
 		static int counter = 0;
 		ImGui::Begin("CustomImGui Hello, world!");              // Create a window called "Hello, world!" and append into it.
