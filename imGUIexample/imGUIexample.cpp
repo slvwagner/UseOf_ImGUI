@@ -26,9 +26,6 @@ Mat frame1 ;
 /// </summary>
 void loadFrame() {
 
-	frame0.release();
-	frame1.release();
-
 	//show video 
 	// Check if the camera was opened successfully
 	if (!(vid_capture0.isOpened() && vid_capture1.isOpened()))
@@ -41,23 +38,46 @@ void loadFrame() {
 
 }
 
-GLuint imageTexture_cam0, imageTexture_cam1;
+// OpenGL Texture 
+GLuint imageTexture_cam0, imageTexture_cam1; // handle to texture`s (Texture ID)
+
+/// <summary>
+/// GPU memory Allocation
+/// </summary>
+/// <param name="image">image (single video frame)</param>
+/// <param name="imageTexture">handel for GPU Allocated memory</param>
+void initTexture(cv::Mat& image, GLuint& imageTexture){
+	
+	if (image.empty()) {
+		std::cout << "image empty" << std::endl;
+	}
+	else {
+		//These settings stick with the texture that's bound. You only need to set them once.
+		glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+		glGenTextures(1, &imageTexture); //Gen a new texture and store the handle
+		glBindTexture(GL_TEXTURE_2D, imageTexture); // Allocate GPU memory for handle (Texture ID)
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		// Set texture clamping method
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+	}
+}
 
 /// <summary>
 /// Change CV Mat to texture, used in imGui
 /// </summary>
-/// <param name="image"></param>
-/// <param name="imageTexture"></param>
+/// <param name="image">image (single video frame)</param>
+/// <param name="imageTexture">handel for GPU Allocated memory</param>
 void BindCVMat2GLTexture(cv::Mat& image, GLuint& imageTexture)
 {
 	if (image.empty()) {
 		std::cout << "image empty" << std::endl;
 	}
 	else {
-		//glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-		glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
-		glGenTextures(1, &imageTexture);
-		glBindTexture(GL_TEXTURE_2D, imageTexture);
+		glBindTexture(GL_TEXTURE_2D, imageTexture); // Allocate GPU memory for handle (Texture ID)
 
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -87,6 +107,7 @@ void BindCVMat2GLTexture(cv::Mat& image, GLuint& imageTexture)
 class CustomImGui : public UseImGui {
 public:
 
+	// load Image only once to GPU memory 
 	void loadImage(char const* fileNamePath) {
 		int image_width = 0;
 		int image_height = 0;
@@ -111,6 +132,8 @@ public:
 		loadFrame();
 		BindCVMat2GLTexture(frame0, imageTexture_cam0);
 		BindCVMat2GLTexture(frame1, imageTexture_cam1);
+		frame0.release();
+		frame1.release();
 
 		// Show video cam0
 		ImGui::Begin("cam0");
@@ -202,8 +225,16 @@ int main()
 	// Load image to display just once
 	myimgui.loadImage("D:/src_D/UseOf_ImGUI/imGUIexample/Picts/logo weiss marine blau.png");
 
-	//Set Webcam settings
+	//Setting up Webcam 
 	videoSettings();
+	loadFrame(); // singl frame needed to calculate GPU memory allocation
+
+	// setting up OpenGL (Allocate GPU memory)
+	initTexture(frame0, imageTexture_cam0);
+	initTexture(frame1, imageTexture_cam1);
+	// releas frames is needed before loading new frame within the .Update() method
+	frame0.release(); 
+	frame1.release();
 
 	// ImGui update
 	while (!glfwWindowShouldClose(window)) {
