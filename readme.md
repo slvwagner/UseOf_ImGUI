@@ -4,6 +4,6 @@
 
 ## Changes by slvwagner
 
-- show pictures
+- show picture 
 - show webcam stream`s
 
