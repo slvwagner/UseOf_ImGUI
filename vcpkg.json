@@ -14,6 +14,7 @@
 		"stb",
 		"python3",
 		"freeglut",
-		"ffmpeg"
+		"ffmpeg",
+		"implot"
 	]
 }

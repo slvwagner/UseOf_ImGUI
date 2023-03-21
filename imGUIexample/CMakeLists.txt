@@ -47,5 +47,10 @@ target_link_libraries(imGUIexample PRIVATE ${FFMPEG_LIBRARIES})
 find_package(Stb REQUIRED)
 target_include_directories(imGUIexample PRIVATE ${Stb_INCLUDE_DIR})
 
+# imPlot
+find_package(implot CONFIG REQUIRED)
+target_link_libraries(imGUIexample PRIVATE implot::implot)
+
+# python
 find_package(Python3 COMPONENTS Development REQUIRED)
 target_link_libraries(imGUIexample PRIVATE Python3::Python)

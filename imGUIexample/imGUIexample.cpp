@@ -156,6 +156,19 @@ public:
 		ImGui::Image((void*)(intptr_t)my_image_texture, ImVec2(my_image_width, my_image_height));
 		ImGui::End();
 
+		ImPlot::ShowDemoWindow();
+		/*
+		// ImPlot example
+		double   bar_data[4] = {1,2,2.5,15};
+		ImGui::Begin("My Window");
+		if (ImPlot::BeginPlot("My Plot")) {
+			ImPlot::PlotBars("My Bar Plot", bar_data, 4);
+			ImPlot::EndPlot();
+		}
+		ImGui::End();
+		*/
+
+
 		// render your GUI
 		static float f = 0.0f;
 		static int counter = 0;
