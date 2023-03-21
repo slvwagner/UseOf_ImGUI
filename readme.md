@@ -7,3 +7,6 @@
 - show picture 
 - show webcam stream`s
 
+## Prerequisites
+Install and setup \
+https://github.com/microsoft/vcpkg
