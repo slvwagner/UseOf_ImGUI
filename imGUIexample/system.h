@@ -1,9 +1,18 @@
 #include "Header.h"
-
-
 using namespace cv;
 
-// Simple helper function to load an image into a OpenGL texture with common settings
+// initialize a video capture object(`s)
+VideoCapture vid_capture0(cam0);
+VideoCapture vid_capture1(cam1);
+
+// Video frames
+Mat frame0;
+Mat frame1;
+
+// OpenGL Texture 
+GLuint imageTexture_cam0, imageTexture_cam1; // handle to texture`s (Texture ID)
+
+// Helper function to load an image into a OpenGL texture with common settings
 bool LoadTextureFromFile(const char* filename, GLuint* out_texture, int* out_width, int* out_height)
 {
     // Load from file
@@ -38,6 +47,92 @@ bool LoadTextureFromFile(const char* filename, GLuint* out_texture, int* out_wid
     return true;
 }
 
+/// <summary>
+/// web cam settings
+/// </summary>
+void videoSettings() {
+    vid_capture0.set(cv::CAP_PROP_FRAME_WIDTH, frameWidth);
+    vid_capture0.set(cv::CAP_PROP_FRAME_HEIGHT, frameHeight);
+    vid_capture1.set(cv::CAP_PROP_FRAME_WIDTH, frameWidth);
+    vid_capture1.set(cv::CAP_PROP_FRAME_HEIGHT, frameHeight);
+}
+
+/// <summary>
+/// load a singl frame
+/// </summary>
+void loadFrame() {
+
+    //show video 
+    // Check if the camera was opened successfully
+    if (!(vid_capture0.isOpened() && vid_capture1.isOpened()))
+    {
+        std::cout << "Error opening camera" << std::endl;
+    }
+    // set correct resolution accoring to camer typ
+    vid_capture0.read(frame0);
+    vid_capture1.read(frame1);
+
+}
+
+
+/// <summary>
+/// GPU memory Allocation
+/// </summary>
+/// <param name="image">image (single video frame)</param>
+/// <param name="imageTexture">handel for GPU Allocated memory</param>
+void initTexture(cv::Mat& image, GLuint& imageTexture) {
+
+    if (image.empty()) {
+        std::cout << "image empty" << std::endl;
+    }
+    else {
+        //These settings stick with the texture that's bound. You only need to set them once.
+        glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+        glGenTextures(1, &imageTexture); //Gen a new texture and store the handle
+        glBindTexture(GL_TEXTURE_2D, imageTexture); // Allocate GPU memory for handle (Texture ID)
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+        // Set texture clamping method
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+    }
+}
+
+/// <summary>
+/// Change CV Mat to texture, used in imGui
+/// </summary>
+/// <param name="image">image (single video frame)</param>
+/// <param name="imageTexture">handel for GPU Allocated memory</param>
+void BindCVMat2GLTexture(cv::Mat& image, GLuint& imageTexture)
+{
+    if (image.empty()) {
+        std::cout << "image empty" << std::endl;
+    }
+    else {
+        glBindTexture(GL_TEXTURE_2D, imageTexture); // Allocate GPU memory for handle (Texture ID)
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+        // Set texture clamping method
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+
+        cv::cvtColor(image, image, cv::COLOR_RGB2BGR);
+
+        glTexImage2D(GL_TEXTURE_2D,         // Type of texture
+            0,                   // Pyramid level (for mip-mapping) - 0 is the top level
+            GL_RGB,              // Internal colour format to convert to
+            image.cols,          // Image width  i.e. 640 for Kinect in standard mode
+            image.rows,          // Image height i.e. 480 for Kinect in standard mode
+            0,                   // Border width in pixels (can either be 1 or 0)
+            GL_RGB,              // Input image format (i.e. GL_RGB, GL_RGBA, GL_BGR etc.)
+            GL_UNSIGNED_BYTE,    // Image data type
+            image.ptr());        // The actual image data itself
+    }
+}
 
 /// <summary>
 /// Get the actrual working directory
@@ -214,6 +309,7 @@ char* double_to_string(double value)
     return buffer;
 }
 
+
 /// <summary>
 /// load all images from a directory and retruns an cv:Mat image vector
 /// </summary>
@@ -224,7 +320,7 @@ vector <cv::Mat> load_images(string imageFilePath, vector <string> fileNames)
 {
     string cfile;
     vector <cv::Mat> images;
-cv:Mat image;
+    cv:Mat image;
 
     // load all files used for calib
     for (int ii = 0; ii < fileNames.size(); ii++)
@@ -330,4 +426,14 @@ void onGammaTrackbarChange(int value, void* userData)
 {
     cv::VideoCapture* capture = static_cast<cv::VideoCapture*>(userData);
     capture->set(cv::CAP_PROP_GAMMA, pow(10.0, value / 100.0));
+}
+
+
+/// <summary>
+/// convert std::string to  const char*
+/// </summary>
+/// <param name="str"></param>
+/// <returns></returns>
+const char* convertToCharPtr(const std::string& str) {
+    return str.c_str();
 }

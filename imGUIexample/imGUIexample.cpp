@@ -1,112 +1,12 @@
 ﻿// imGUIexample.cpp : Defines the entry point for the application.
 //
 #include "Header.h"
-using namespace cv;
-
-// initialize a video capture object(`s)
-VideoCapture vid_capture0(cam0);
-VideoCapture vid_capture1(cam1);
-
-/// <summary>
-/// web cam settings
-/// </summary>
-void videoSettings() {
-	vid_capture0.set(cv::CAP_PROP_FRAME_WIDTH, frameWidth);
-	vid_capture0.set(cv::CAP_PROP_FRAME_HEIGHT, frameHeight);
-	vid_capture1.set(cv::CAP_PROP_FRAME_WIDTH, frameWidth);
-	vid_capture1.set(cv::CAP_PROP_FRAME_HEIGHT, frameHeight);
-}
-
-// Video frames
-Mat frame0 ;
-Mat frame1 ;
-
-/// <summary>
-/// load a singl frame
-/// </summary>
-void loadFrame() {
-
-	//show video 
-	// Check if the camera was opened successfully
-	if (!(vid_capture0.isOpened() && vid_capture1.isOpened()))
-	{
-		std::cout << "Error opening camera" << std::endl;
-	}
-	// set correct resolution accoring to camer typ
-	vid_capture0.read(frame0);
-	vid_capture1.read(frame1);
-
-}
-
-// OpenGL Texture 
-GLuint imageTexture_cam0, imageTexture_cam1; // handle to texture`s (Texture ID)
-
-/// <summary>
-/// GPU memory Allocation
-/// </summary>
-/// <param name="image">image (single video frame)</param>
-/// <param name="imageTexture">handel for GPU Allocated memory</param>
-void initTexture(cv::Mat& image, GLuint& imageTexture){
-	
-	if (image.empty()) {
-		std::cout << "image empty" << std::endl;
-	}
-	else {
-		//These settings stick with the texture that's bound. You only need to set them once.
-		glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
-		glGenTextures(1, &imageTexture); //Gen a new texture and store the handle
-		glBindTexture(GL_TEXTURE_2D, imageTexture); // Allocate GPU memory for handle (Texture ID)
-
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-		// Set texture clamping method
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-	}
-}
-
-/// <summary>
-/// Change CV Mat to texture, used in imGui
-/// </summary>
-/// <param name="image">image (single video frame)</param>
-/// <param name="imageTexture">handel for GPU Allocated memory</param>
-void BindCVMat2GLTexture(cv::Mat& image, GLuint& imageTexture)
-{
-	if (image.empty()) {
-		std::cout << "image empty" << std::endl;
-	}
-	else {
-		glBindTexture(GL_TEXTURE_2D, imageTexture); // Allocate GPU memory for handle (Texture ID)
-
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-		// Set texture clamping method
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-
-		cv::cvtColor(image, image, cv::COLOR_RGB2BGR);
-
-		glTexImage2D(GL_TEXTURE_2D,         // Type of texture
-			0,                   // Pyramid level (for mip-mapping) - 0 is the top level
-			GL_RGB,              // Internal colour format to convert to
-			image.cols,          // Image width  i.e. 640 for Kinect in standard mode
-			image.rows,          // Image height i.e. 480 for Kinect in standard mode
-			0,                   // Border width in pixels (can either be 1 or 0)
-			GL_RGB,              // Input image format (i.e. GL_RGB, GL_RGBA, GL_BGR etc.)
-			GL_UNSIGNED_BYTE,    // Image data type
-			image.ptr());        // The actual image data itself
-	}
-}
-
 
 /// <summary>
 /// 2. Part of the class to create an ImGui object
 /// </summary>
 class CustomImGui : public UseImGui {
 public:
-
 	// load Image only once to GPU memory 
 	void loadImage(char const* fileNamePath) {
 		int image_width = 0;
@@ -180,6 +80,13 @@ public:
 		ImGui::SameLine();
 		ImGui::Text("counter = %d", counter);
 		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+
+		// Generate samples and plot them
+		float samples[100];
+		for (int n = 0; n < 100; n++)
+			samples[n] = sinf(n * 0.2f + ImGui::GetTime() * 2.5f);
+		ImGui::PlotLines("Samples", samples, 100);
+
 		ImGui::End();
 
 		if (clear_color_changed) {
@@ -203,9 +110,12 @@ private:
 /// Testing ImGui 
 /// show Pictures
 /// </summary>
-/// <returns></returns>
+/// <returns>returns 0 if normal shutdown</returns>
 int main()
 {
+	// Print working directory 
+	cout << getwd();
+	
 	// Setup window
 	if (!glfwInit())
 		return 1;
@@ -213,9 +123,9 @@ int main()
 	// GL 3.0 + GLSL 130
 	const char *glsl_version = "#version 130";
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
-	//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);  // 3.2+ only
-	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            // 3.0+ only
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);  // 3.2+ only
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            // 3.0+ only
 
 	// Create window with graphics context
 	GLFWwindow *window = glfwCreateWindow(1280, 720, "Dear ImGui - Example", NULL, NULL);
@@ -235,7 +145,7 @@ int main()
 	CustomImGui myimgui;
 	myimgui.Init(window, glsl_version);
 	// Load image to display just once
-	myimgui.loadImage("D:/src_D/UseOf_ImGUI/imGUIexample/Picts/logo weiss marine blau.png");
+	myimgui.loadImage("UseOf_ImGUI/imGUIexample/Picts/logo weiss marine blau.png");
 
 	//Setting up Webcam 
 	videoSettings();
@@ -262,7 +172,7 @@ int main()
 	// reles webcams 
 	vid_capture0.release();
 	vid_capture0.release();
-	destroyAllWindows();
 
+	// No problems to run the code 
 	return 0;
 }
