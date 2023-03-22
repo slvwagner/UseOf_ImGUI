@@ -1,6 +1,18 @@
 ﻿cmake_minimum_required (VERSION 3.8)
 
-add_executable (imGUIexample "imGUIexample.cpp" "UseImGui.cpp" "UseImGui.h"   "system.h" "Header.h" "Enum.h"   )
+add_executable (imGUIexample "imGUIexample.cpp" "UseImGui.cpp" "UseImGui.h"   "system.h" "Header.h" "Enum.h" ) #  
+
+# Install Logos/icons
+message("************************************\n************************************")
+message("PROJECT_SOURCE_DIR = ${PROJECT_SOURCE_DIR}/imGUIexample/Picts")
+message("Image = ${PROJECT_SOURCE_DIR}/imGUIexample/Picts/wagnius.png")
+message("PROJECT_BINARY_DIR = ${PROJECT_BINARY_DIR}/imGUIexample/Picts")
+message("************************************\n************************************")
+
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/imGUIexample/Picts  DESTINATION ${CMAKE_INSTALL_PREFIX}/Picts) 
+
+
+#install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/imGUIexample/Picts/wagnius.png  DESTINATION ${CMAKE_INSTALL_PREFIX}) 
 
 find_package(glad CONFIG REQUIRED)
 target_link_libraries(imGUIexample PRIVATE glad::glad)

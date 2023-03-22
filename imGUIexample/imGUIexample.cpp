@@ -149,7 +149,7 @@ int main()
 
 	//Setting up Webcam 
 	videoSettings();
-	loadFrame(); // singl frame needed to calculate GPU memory allocation
+	loadFrame(); // single frame needed to calculate GPU memory allocation
 
 	// setting up OpenGL (Allocate GPU memory)
 	initTexture(frame0, imageTexture_cam0);
