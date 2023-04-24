@@ -145,7 +145,7 @@ int main()
 	CustomImGui myimgui;
 	myimgui.Init(window, glsl_version);
 	// Load image to display just once
-	myimgui.loadImage("UseOf_ImGUI/imGUIexample/Picts/logo weiss marine blau.png");
+	myimgui.loadImage("D:/src_D/UseOf_ImGUI/imGUIexample/Picts/wagnius.png");
 
 	//Setting up Webcam 
 	videoSettings();

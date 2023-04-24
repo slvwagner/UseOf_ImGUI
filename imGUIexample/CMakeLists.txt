@@ -7,9 +7,9 @@ add_executable (imGUIexample "imGUIexample.cpp" "UseImGui.cpp" "UseImGui.h"   "s
 # Install Logos/icons
 message("************************************\n************************************")
 message("CMAKE_CURRENT_BINARY_DIR = ${CMAKE_CURRENT_BINARY_DIR}/imGUIexample/Picts")
-message("Image = ${CMAKE_CURRENT_SOURCE_DIR}/Picts/wagnius.png")
-message("PROJECT_BINARY_DIR = ${PROJECT_BINARY_DIR}/imGUIexample/Picts")
-message("CMAKE_INSTALL_PREFIX = ${CMAKE_INSTALL_PREFIX}/imGUIexample/Picts")
+message("Image = ${CMAKE_CURRENT_SOURCE_DIR}/wagnius.png")
+message("PROJECT_BINARY_DIR = ${PROJECT_BINARY_DIR}/imGUIexample")
+message("CMAKE_INSTALL_PREFIX = ${CMAKE_INSTALL_PREFIX}/imGUIexample")
 message("************************************\n************************************")
 
 #nstall(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/imGUIexample/Picts  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Picts) 
