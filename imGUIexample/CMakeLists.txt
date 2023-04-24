@@ -1,20 +1,18 @@
-﻿cmake_minimum_required (VERSION 3.8)
-
+﻿# Version
+cmake_minimum_required (VERSION 3.8)
+# source
 add_executable (imGUIexample "imGUIexample.cpp" "UseImGui.cpp" "UseImGui.h"   "system.h" "Header.h" "Enum.h" ) #  
-#target_include_directories(imGUIexample ${CMAKE_CURRENT_SOURCE_DIR})
 
 
 # Install Logos/icons
 message("************************************\n************************************")
-message("CMAKE_CURRENT_BINARY_DIR = ${CMAKE_CURRENT_BINARY_DIR}/imGUIexample/Picts")
-message("Image = ${CMAKE_CURRENT_SOURCE_DIR}/wagnius.png")
-message("PROJECT_BINARY_DIR = ${PROJECT_BINARY_DIR}/imGUIexample")
-message("CMAKE_INSTALL_PREFIX = ${CMAKE_INSTALL_PREFIX}/imGUIexample")
+message("Image source = ${CMAKE_CURRENT_SOURCE_DIR}/picts/wagnius.png")
+message("Image destiantion   = ${CMAKE_CURRENT_BINARY_DIR}/picts/wagnius.png")
 message("************************************\n************************************")
 
-#nstall(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/imGUIexample/Picts  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Picts) 
-#nstall(FILES ${CMAKE_CURRENT_SOURCE_DIR}/imGUIexample/Picts/wagnius.png  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Picts) 
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/picts/wagnius.png  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/picts)
 
+# ImGui dependecies 
 find_package(glad CONFIG REQUIRED)
 target_link_libraries(imGUIexample PRIVATE glad::glad)
 
