@@ -33,14 +33,16 @@
 //Enums
 #include "Enum.h"
 
+// Helper function
+#include "system.h"
+
 // ImGui 
 #include "UseImGui.h"
 
 // Common name space for the project
 using namespace std;
 
-// Helper function
-#include "system.h"
+
 
 
 #pragma warning(disable : 4996)
