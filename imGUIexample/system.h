@@ -101,7 +101,7 @@ void initTexture(cv::Mat& image, GLuint& imageTexture) {
 }
 
 /// <summary>
-/// Change CV Mat to texture, used in imGui
+/// Transform CV Mat (OpenCV) to texture (imGui)
 /// </summary>
 /// <param name="image">image (single video frame)</param>
 /// <param name="imageTexture">handel for GPU Allocated memory</param>
