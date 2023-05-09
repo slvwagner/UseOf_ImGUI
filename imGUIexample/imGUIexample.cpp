@@ -40,7 +40,7 @@ int main()
 	// Create GUI object
 	CustomImGui myimgui;
 	myimgui.Init(window, glsl_version);
-	// Load image to display just once
+	// Load image just once 
 	myimgui.loadImage("picts/wagnius.png");
 
 	//Setting up Webcam 

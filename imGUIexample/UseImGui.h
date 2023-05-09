@@ -14,7 +14,11 @@ public:
 /// </summary>
 class CustomImGui : public UseImGui {
 public:
-	// load Image only once to GPU memory 
+
+	/// <summary>
+	/// load Image only once to GPU memory 
+	/// </summary>
+	/// <param name="fileNamePath"></param>
 	void loadImage(char const* fileNamePath) {
 		int image_width = 0;
 		int image_height = 0;
@@ -33,6 +37,9 @@ public:
 		}
 	}
 
+	/// <summary>
+	/// Custom update 
+	/// </summary>
 	virtual void Update() override {
 
 		// Webcam frames
