@@ -2,6 +2,8 @@
 //
 #include "Header.h"
 
+
+/*
 // initialize a video capture object(`s)
 VideoCapture vid_capture0(cam0);
 VideoCapture vid_capture1(cam1);
@@ -9,6 +11,7 @@ VideoCapture vid_capture1(cam1);
 // Video frames
 Mat frame0;
 Mat frame1;
+
 
 /// <summary>
 /// set web cam settings
@@ -36,6 +39,7 @@ void loadFrame() {
 	vid_capture1.read(frame1);
 
 }
+*/
 
 // OpenGL Texture 
 GLuint imageTexture_cam0, imageTexture_cam1; // handle to texture`s (Texture ID)
@@ -126,6 +130,7 @@ public:
 
 	virtual void Update() override {
 		
+		/*
 		// Webcam frames
 		loadFrame();
 		BindCVMat2GLTexture(frame0, imageTexture_cam0);
@@ -146,6 +151,7 @@ public:
 		ImGui::Text("size = %d x %d", frameWidth, frameHeight);
 		ImGui::Image((void*)(intptr_t)imageTexture_cam1, ImVec2(frameWidth, frameHeight));
 		ImGui::End();
+		*/
 
 		// Show Image in Gui
 		ImGui::Begin("OpenGL Texture Text");
@@ -235,6 +241,7 @@ int main()
 	// Load image to display just once
 	myimgui.loadImage("picts/wagnius.png");
 
+	/*
 	//Setting up Webcam 
 	videoSettings();
 	loadFrame(); // single frame needed to calculate GPU memory allocation
@@ -242,9 +249,11 @@ int main()
 	// setting up OpenGL (Allocate GPU memory)
 	initTexture(frame0, imageTexture_cam0);
 	initTexture(frame1, imageTexture_cam1);
+	
 	// releas frames is needed before loading new frame within the .Update() method
 	frame0.release();
 	frame1.release();
+	*/
 
 	// ImGui update
 	while (!glfwWindowShouldClose(window)) {
@@ -257,10 +266,12 @@ int main()
 	}
 	myimgui.Shutdown();
 
+	/*
 	// reles webcams 
 	vid_capture0.release();
 	vid_capture0.release();
 	destroyAllWindows();
+	*/
 
 	return 0;
 }
