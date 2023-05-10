@@ -234,7 +234,7 @@ int main()
 	CustomImGui myimgui;
 	myimgui.Init(window, glsl_version);
 	// Load image to display just once
-	myimgui.loadImage("/picts/wagnius.png");
+	myimgui.loadImage("picts/wagnius.png");
 
 	//Setting up Webcam 
 	videoSettings();
