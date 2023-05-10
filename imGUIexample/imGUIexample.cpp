@@ -6,8 +6,12 @@
 VideoCapture vid_capture0(cam0);
 VideoCapture vid_capture1(cam1);
 
+// Video frames
+Mat frame0;
+Mat frame1;
+
 /// <summary>
-/// web cam settings
+/// set web cam settings
 /// </summary>
 void videoSettings() {
 	vid_capture0.set(cv::CAP_PROP_FRAME_WIDTH, frameWidth);
@@ -16,12 +20,8 @@ void videoSettings() {
 	vid_capture1.set(cv::CAP_PROP_FRAME_HEIGHT, frameHeight);
 }
 
-// Video frames
-Mat frame0;
-Mat frame1;
-
 /// <summary>
-/// load a singl frame
+/// load a singl frame from web cam
 /// </summary>
 void loadFrame() {
 
@@ -41,7 +41,7 @@ void loadFrame() {
 GLuint imageTexture_cam0, imageTexture_cam1; // handle to texture`s (Texture ID)
 
 /// <summary>
-/// GPU memory Allocation
+/// GPU memory Allocation for a picture
 /// </summary>
 /// <param name="image">image (single video frame)</param>
 /// <param name="imageTexture">handel for GPU Allocated memory</param>
@@ -66,7 +66,7 @@ void initTexture(cv::Mat& image, GLuint& imageTexture) {
 }
 
 /// <summary>
-/// Change CV Mat to texture, used in imGui
+/// Convert CV::Mat to texture, used in imGui
 /// </summary>
 /// <param name="image">image (single video frame)</param>
 /// <param name="imageTexture">handel for GPU Allocated memory</param>
@@ -99,9 +99,8 @@ void BindCVMat2GLTexture(cv::Mat& image, GLuint& imageTexture)
 	}
 }
 
-
 /// <summary>
-/// 2. Part of the class to create an ImGui object
+/// custom function for UseImGui class
 /// </summary>
 class CustomImGui : public UseImGui {
 public:
@@ -155,7 +154,7 @@ public:
 		ImGui::Image((void*)(intptr_t)my_image_texture, ImVec2(my_image_width, my_image_height));
 		ImGui::End();
 
-		//ImPlot::ShowDemoWindow();
+		ImPlot::ShowDemoWindow();
 		/*
 		// ImPlot example
 		double   bar_data[4] = {1,2,2.5,15};

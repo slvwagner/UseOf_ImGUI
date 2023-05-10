@@ -1,9 +1,15 @@
 #include "Header.h"
 
-
 using namespace cv;
 
-// Simple helper function to load an image into a OpenGL texture with common settings
+/// <summary>
+/// Simple helper function to load an image into a OpenGL texture with common settings
+/// </summary>
+/// <param name="filename"></param>
+/// <param name="out_texture"></param>
+/// <param name="out_width"></param>
+/// <param name="out_height"></param>
+/// <returns></returns>
 bool LoadTextureFromFile(const char* filename, GLuint* out_texture, int* out_width, int* out_height)
 {
     // Load from file
@@ -40,7 +46,7 @@ bool LoadTextureFromFile(const char* filename, GLuint* out_texture, int* out_wid
 
 
 /// <summary>
-/// Get the actrual working directory
+/// Get the actrual working directory as a character string
 /// </summary>
 /// <returns>string</returns>
 string getwd()
@@ -139,6 +145,13 @@ vector<string> list_files_by_extension(const string& dir_name, const string& ext
     return files;
 }
 
+
+/// <summary>
+/// find all files with specifix file extention in directrory
+/// </summary>
+/// <param name="dir_name"></param>
+/// <param name="pattern"></param>
+/// <returns></returns>
 vector<string> list_files_by_pattern(const string& dir_name, const string& pattern)
 {
     vector<string> files;
