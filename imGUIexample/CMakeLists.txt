@@ -12,6 +12,10 @@ message("************************************\n*********************************
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/picts/wagnius.png  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/picts)
 
+# pthread
+find_package(PThreads4W REQUIRED)
+target_link_libraries(imGUIexample PRIVATE PThreads4W::PThreads4W)
+
 # ImGui dependecies 
 find_package(glad CONFIG REQUIRED)
 target_link_libraries(imGUIexample PRIVATE glad::glad)

@@ -3,7 +3,7 @@
 void UseImGui::Init(GLFWwindow* window, const char* glsl_version) {
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
-	ImGuiIO &io = ImGui::GetIO();
+	ImGuiIO& io = ImGui::GetIO();
 	// Setup Platform/Renderer bindings
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
 	ImGui_ImplOpenGL3_Init(glsl_version);
@@ -17,9 +17,9 @@ void UseImGui::NewFrame() {
 	ImGui::NewFrame();
 }
 
+
 void UseImGui::Update() {
-	ImGui::Begin("Plot"); // Create a window called "Conan Logo" and append into it.
-	ImPlot::ShowDemoWindow();
+	ImGui::Begin("Conan Logo"); 
 	ImGui::End();
 }
 
