@@ -6,7 +6,7 @@ add_executable (imGUIexample "imGUIexample.cpp" "UseImGui.cpp" "UseImGui.h"   "s
 
 # Install Logos/icons
 message("************************************\n************************************")
-message("Image source = ${CMAKE_CURRENT_SOURCE_DIR}/picts/wagnius.png")
+message("Image source = ${CMAKE_CURRENT_SOURCE_DIR}/Picts/wagnius.png")
 message("Image destiantion   = ${CMAKE_CURRENT_BINARY_DIR}/picts/wagnius.png")
 message("************************************\n************************************")
 
