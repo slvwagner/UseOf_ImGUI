@@ -27,6 +27,12 @@
 #include <opencv2/imgproc.hpp>
 #include "opencv2/imgcodecs.hpp"
 
+//imPlot
+#include <implot.h>
+#include <implot_internal.h>
+
+
+
 // loading pictures to memory 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"

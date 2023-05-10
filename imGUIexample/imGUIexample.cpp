@@ -125,7 +125,7 @@ public:
 	}
 
 	virtual void Update() override {
-
+		
 		// Webcam frames
 		loadFrame();
 		BindCVMat2GLTexture(frame0, imageTexture_cam0);
@@ -154,8 +154,8 @@ public:
 		ImGui::Image((void*)(intptr_t)my_image_texture, ImVec2(my_image_width, my_image_height));
 		ImGui::End();
 
-		ImPlot::ShowDemoWindow();
 		/*
+		//ImPlot::ShowDemoWindow();
 		// ImPlot example
 		double   bar_data[4] = {1,2,2.5,15};
 		ImGui::Begin("My Window");
@@ -199,7 +199,7 @@ private:
 
 /// <summary>
 /// Testing ImGui 
-/// show Pictures
+/// show Pictures and web cam video in ImGui
 /// </summary>
 /// <returns></returns>
 int main()
@@ -237,7 +237,7 @@ int main()
 
 	//Setting up Webcam 
 	videoSettings();
-	loadFrame(); // singl frame needed to calculate GPU memory allocation
+	loadFrame(); // single frame needed to calculate GPU memory allocation
 
 	// setting up OpenGL (Allocate GPU memory)
 	initTexture(frame0, imageTexture_cam0);
