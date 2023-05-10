@@ -1,5 +1,5 @@
 ﻿# Version
-cmake_minimum_required (VERSION 3.8)
+cmake_minimum_required (VERSION 3.25)
 # source
 add_executable (imGUIexample "imGUIexample.cpp" "UseImGui.cpp" "UseImGui.h"   "system.h" "Header.h" "Enum.h" ) #  
 
@@ -53,6 +53,7 @@ target_link_libraries(imGUIexample PRIVATE OpenGL::GL)
 find_package(FreeGLUT CONFIG REQUIRED)
 target_link_libraries(imGUIexample PRIVATE $<IF:$<TARGET_EXISTS:FreeGLUT::freeglut>,FreeGLUT::freeglut,FreeGLUT::freeglut_static>)
 
+# ffmpeg
 find_package(FFMPEG REQUIRED)
 target_include_directories(imGUIexample PRIVATE ${FFMPEG_INCLUDE_DIRS})
 target_link_directories(imGUIexample PRIVATE ${FFMPEG_LIBRARY_DIRS})
