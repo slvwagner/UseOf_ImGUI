@@ -3,7 +3,6 @@ cmake_minimum_required (VERSION 3.25)
 # source
 add_executable (imGUIexample "imGUIexample.cpp" "UseImGui.cpp" "UseImGui.h"   "system.h" "Header.h" "Enum.h" ) #  
 
-
 # Install Logos/icons
 message("************************************\n************************************")
 message("Image source = ${CMAKE_CURRENT_SOURCE_DIR}/Picts/wagnius.png")
