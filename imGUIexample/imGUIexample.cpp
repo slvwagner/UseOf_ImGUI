@@ -130,6 +130,10 @@ public:
 
 	virtual void Update() override {
 		
+		// We specify a default position/size in case there's no data in the .ini file. 
+		// Typically this isn't required! We only do it to make the Demo applications a little more welcoming.
+		ImGui::SetNextWindowPos(ImVec2(10, 10), ImGuiCond_FirstUseEver);
+
 		// Show Image in Gui
 		ImGui::Begin("OpenGL Texture Text");
 		ImGui::Text("pointer = %p", my_image_texture);
@@ -140,10 +144,12 @@ public:
 		ImPlot::ShowDemoWindow();
 				
 		// ImPlot example
-		double   bar_data[4] = {1,2,2.5,15};
-		ImGui::Begin("My Plot Window", nullptr,ImGuiWindowFlags_MenuBar); // passing a nullptr enables the ImGui Window to be adjusted as defined by the next statement of Implot
+		double bar_data[4] = {1  ,2  ,2.5,15};
+		double x[4]        = {0.2,2.2,3.3, 8};
+		ImGui::Begin("Plot Window", nullptr,ImGuiWindowFlags_MenuBar); // passing a nullptr enables the ImGui Window to be adjusted as defined by the next statement of Implot
 		if (ImPlot::BeginPlot("My Plot", ImVec2(800,600))) { // size of window will be definde by ImVec2
 			ImPlot::PlotBars("My Bar Plot", bar_data, 4);
+			ImPlot::PlotBars("2",  x, 4);
 			ImPlot::EndPlot();
 		}
 		ImGui::End();
@@ -218,19 +224,7 @@ int main()
 	// Load image to display just once
 	myimgui.loadImage("picts/wagnius.png");
 
-	/*
-	//Setting up Webcam 
-	videoSettings();
-	loadFrame(); // single frame needed to calculate GPU memory allocation
-
-	// setting up OpenGL (Allocate GPU memory)
-	initTexture(frame0, imageTexture_cam0);
-	initTexture(frame1, imageTexture_cam1);
 	
-	// releas frames is needed before loading new frame within the .Update() method
-	frame0.release();
-	frame1.release();
-	*/
 
 	// ImGui update
 	while (!glfwWindowShouldClose(window)) {
