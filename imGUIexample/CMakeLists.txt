@@ -1,7 +1,7 @@
 ﻿# Version
 cmake_minimum_required (VERSION 3.8)
 # source
-add_executable (imGUIexample "imGUIexample.cpp" "UseImGui.cpp" "UseImGui.h"   "system.h" "Header.h" "Enum.h" ) #  
+add_executable (imGUIexample "imGUIexample.cpp" "UseImGui.cpp" "UseImGui.h"   "system.h" "Header.h" "Enum.h" )
 
 message("************************************")
 message("vcpkg root = ${CMAKE_MSVC_RUNTIME_LIBRARY}")
