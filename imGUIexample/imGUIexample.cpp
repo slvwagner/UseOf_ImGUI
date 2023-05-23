@@ -1,7 +1,7 @@
 ﻿// imGUIexample.cpp : Defines the entry point for the application.
 //
 #include "Header.h"
-
+ 
 
 /*
 // initialize a video capture object(`s)
@@ -161,7 +161,7 @@ public:
 		ImGui::End();
 
 		
-		//ImPlot::ShowDemoWindow();
+		ImPlot::ShowDemoWindow();
 		
 		/*
 		// ImPlot example
@@ -224,7 +224,7 @@ int main()
 	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            // 3.0+ only
 
 	// Create window with graphics context
-	GLFWwindow* window = glfwCreateWindow(1280, 720, "Dear ImGui - Example", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(frameWidth, frameHeight, "Dear ImGui - Example", NULL, NULL);
 	if (window == NULL)
 		return 1;
 	glfwMakeContextCurrent(window);

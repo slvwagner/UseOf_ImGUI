@@ -15,6 +15,8 @@ file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/picts/wagnius.png  DESTINATION ${CMAKE_CUR
 find_package(PThreads4W REQUIRED)
 target_link_libraries(imGUIexample PRIVATE PThreads4W::PThreads4W)
 
+#add_library(implot_demo.cpp)
+
 # ImGui dependecies 
 find_package(glad CONFIG REQUIRED)
 target_link_libraries(imGUIexample PRIVATE glad::glad)

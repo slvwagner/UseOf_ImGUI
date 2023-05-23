@@ -1,8 +1,13 @@
 #include "UseImGui.h"
 
+//imPlot
+#include <implot.h>
+#include <implot_internal.h>
+
 void UseImGui::Init(GLFWwindow* window, const char* glsl_version) {
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
+	ImPlot::CreateContext();
 	ImGuiIO& io = ImGui::GetIO();
 	// Setup Platform/Renderer bindings
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
@@ -33,6 +38,7 @@ void UseImGui::Shutdown() {
 	// Cleanup
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
+	ImPlot::DestroyContext();
 	ImGui::DestroyContext();
 }
 
