@@ -155,9 +155,9 @@ public:
 		ImGui::End();
 
 		
-		//ImPlot::ShowDemoWindow();
+		ImPlot::ShowDemoWindow();
 		
-		/*
+		
 		// ImPlot example
 		double   bar_data[4] = {1,2,2.5,15};
 		ImGui::Begin("My Window");
@@ -166,7 +166,7 @@ public:
 			ImPlot::EndPlot();
 		}
 		ImGui::End();
-		*/
+		
 
 		// CustomImGui Hello, world! 
 		static float f = 0.0f;
@@ -218,7 +218,7 @@ int main()
 	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            // 3.0+ only
 
 	// Create window with graphics context
-	GLFWwindow* window = glfwCreateWindow(1280, 720, "Dear ImGui - Example", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(frameWidth, frameHeight, "Dear ImGui - Example", NULL, NULL);
 	if (window == NULL)
 		return 1;
 	glfwMakeContextCurrent(window);
