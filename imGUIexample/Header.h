@@ -32,8 +32,8 @@
 #include <implot_internal.h>
 
 // R  
-#include "C:/Program Files/R/R-4.3.0/include/R.h"
-#include "C:/Program Files/R/R-4.3.0/include/Rinternals.h"
+//#include <R.h>
+//#include <Rinternals.h>
 
 // loading pictures to memory 
 #define STB_IMAGE_IMPLEMENTATION
