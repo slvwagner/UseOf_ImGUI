@@ -130,29 +130,6 @@ public:
 
 	virtual void Update() override {
 		
-		/*
-		// Webcam frames
-		loadFrame();
-		BindCVMat2GLTexture(frame0, imageTexture_cam0);
-		BindCVMat2GLTexture(frame1, imageTexture_cam1);
-		frame0.release();
-		frame1.release();
-
-		// Show video cam0
-		ImGui::Begin("cam0");
-		ImGui::Text("pointer = %p", imageTexture_cam0);
-		ImGui::Text("size = %d x %d", frameWidth, frameHeight);
-		ImGui::Image((void*)(intptr_t)imageTexture_cam0, ImVec2(frameWidth, frameHeight));
-		ImGui::End();
-
-		// Show video cam1
-		ImGui::Begin("cam1");
-		ImGui::Text("pointer = %p", imageTexture_cam1);
-		ImGui::Text("size = %d x %d", frameWidth, frameHeight);
-		ImGui::Image((void*)(intptr_t)imageTexture_cam1, ImVec2(frameWidth, frameHeight));
-		ImGui::End();
-		*/
-
 		// Show Image in Gui
 		ImGui::Begin("OpenGL Texture Text");
 		ImGui::Text("pointer = %p", my_image_texture);
@@ -163,16 +140,16 @@ public:
 		
 		ImPlot::ShowDemoWindow();
 		
-		/*
+		
 		// ImPlot example
 		double   bar_data[4] = {1,2,2.5,15};
-		ImGui::Begin("My Window");
-		if (ImPlot::BeginPlot("My Plot")) {
+		ImGui::Begin("My Plot Window", nullptr,ImGuiWindowFlags_MenuBar); // passing a nullptr enables the ImGui Window to be adjusted as defined by the next statement of Implot
+		if (ImPlot::BeginPlot("My Plot", ImVec2(800,600))) { // size of window will be definde by ImVec2
 			ImPlot::PlotBars("My Bar Plot", bar_data, 4);
 			ImPlot::EndPlot();
 		}
 		ImGui::End();
-		*/
+		
 
 		// CustomImGui Hello, world! 
 		static float f = 0.0f;
