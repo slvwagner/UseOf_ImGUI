@@ -136,11 +136,9 @@ public:
 		ImGui::Text("size = %d x %d", my_image_width, my_image_height);
 		ImGui::Image((void*)(intptr_t)my_image_texture, ImVec2(my_image_width, my_image_height));
 		ImGui::End();
-
-		
+				
 		ImPlot::ShowDemoWindow();
-		
-		
+				
 		// ImPlot example
 		double   bar_data[4] = {1,2,2.5,15};
 		ImGui::Begin("My Plot Window", nullptr,ImGuiWindowFlags_MenuBar); // passing a nullptr enables the ImGui Window to be adjusted as defined by the next statement of Implot
