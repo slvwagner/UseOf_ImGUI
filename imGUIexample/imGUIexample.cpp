@@ -2,45 +2,6 @@
 //
 #include "Header.h"
  
-
-/*
-// initialize a video capture object(`s)
-VideoCapture vid_capture0(cam0);
-VideoCapture vid_capture1(cam1);
-
-// Video frames
-Mat frame0;
-Mat frame1;
-
-
-/// <summary>
-/// set web cam settings
-/// </summary>
-void videoSettings() {
-	vid_capture0.set(cv::CAP_PROP_FRAME_WIDTH, frameWidth);
-	vid_capture0.set(cv::CAP_PROP_FRAME_HEIGHT, frameHeight);
-	vid_capture1.set(cv::CAP_PROP_FRAME_WIDTH, frameWidth);
-	vid_capture1.set(cv::CAP_PROP_FRAME_HEIGHT, frameHeight);
-}
-
-/// <summary>
-/// load a singl frame from web cam
-/// </summary>
-void loadFrame() {
-
-	//show video 
-	// Check if the camera was opened successfully
-	if (!(vid_capture0.isOpened() && vid_capture1.isOpened()))
-	{
-		std::cout << "Error opening camera" << std::endl;
-	}
-	// set correct resolution accoring to camer typ
-	vid_capture0.read(frame0);
-	vid_capture1.read(frame1);
-
-}
-*/
-
 // OpenGL Texture 
 GLuint imageTexture_cam0, imageTexture_cam1; // handle to texture`s (Texture ID)
 
