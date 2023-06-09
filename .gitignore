@@ -3,6 +3,27 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# remove all created stuff by cmake for VisualStudio
+*.vcxproj
+*.vcxproj.filters
+*.sln
+
+# remove all created stuff by cmake for cmake
+*CMakeFiles/*
+*/CMakeFiles/*
+*.cmake
+
+# remove all created stuff by cmake forvcpkg
+*vcpkg_installed/*
+
+# remove all created stuff by cmake for json settings
+CMakeCache.txt
+CMakePresets.json
+CMakeSettings.json
+
+# remove MinSizeRel
+*MinSizeRel/
+
 # User-specific files
 *.rsuser
 *.suo
