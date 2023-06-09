@@ -73,7 +73,11 @@ Mat GetImage(string filePathName)
 {
     Mat image = imread(filePathName);
     if (image.empty()) return image;
-    else cout << "Could not read file: " << filePathName << endl;
+    else
+    {
+        cout << "Could not read file: " << filePathName << endl;
+        return Mat();
+    }
 }
 
 
@@ -237,7 +241,7 @@ vector <cv::Mat> load_images(string imageFilePath, vector <string> fileNames)
 {
     string cfile;
     vector <cv::Mat> images;
-cv:Mat image;
+cv::Mat image;
 
     // load all files used for calib
     for (int ii = 0; ii < fileNames.size(); ii++)

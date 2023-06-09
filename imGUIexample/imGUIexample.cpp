@@ -151,7 +151,7 @@ public:
 		ImGui::Begin("OpenGL Texture Text");
 		ImGui::Text("pointer = %p", my_image_texture);
 		ImGui::Text("size = %d x %d", my_image_width, my_image_height);
-		ImGui::Image((void*)(intptr_t)my_image_texture, ImVec2(my_image_width, my_image_height));
+		ImGui::Image((void*)(intptr_t)my_image_texture, ImVec2(float(my_image_width), float(my_image_height)));
 		ImGui::End();
 
 		
