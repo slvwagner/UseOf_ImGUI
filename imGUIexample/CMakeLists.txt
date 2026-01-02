@@ -11,10 +11,10 @@ message("************************************\n")
 # Install Logos/icons
 message("************************************")
 message("Image source = ${CMAKE_CURRENT_SOURCE_DIR}/Picts/wagnius.png")
-message("Image destiantion = ${CMAKE_CURRENT_BINARY_DIR}/picts/wagnius.png")
+message("Image destiantion = ${CMAKE_CURRENT_BINARY_DIR}/Picts/wagnius.png")
 message("************************************\n************************************")
 
-file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/picts/wagnius.png  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/picts)
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/Picts/wagnius.png  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Picts)
 
 # pthread
 find_package(PThreads4W REQUIRED)
